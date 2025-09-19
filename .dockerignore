@@ -1,0 +1,17 @@
+# Ignore everything by default, keep only what the image build needs (dist, nginx.conf, Dockerfile)
+**
+
+# Keep build output and nginx config provided by CI
+!dist
+!nginx.conf
+!Dockerfile
+!.dockerignore
+
+# Common things to exclude from build context
+node_modules
+.git
+.vscode
+.env
+*.log
+npm-debug.log
+package-lock.json
