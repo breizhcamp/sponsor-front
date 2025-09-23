@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    Welcome Sponsors! 01
+    Welcome Sponsors! 02
   </main>
 </template>
