@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
+
+import LogoBreizhCamp from '@/assets/logo-breizhcamp-icone.svg';
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo-breizhcamp-icone.svg" width="125" height="125" />
+    <LogoBreizhCamp class="logo" width="125" height="125" />
 
     <div class="wrapper">
 
