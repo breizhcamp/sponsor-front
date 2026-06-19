@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": "^24.17.0"
   },
   "scripts": {
     "dev": "vite",
@@ -17,20 +17,20 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "vue": "^3.5.18",
-    "vue-router": "^4.5.1"
+    "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^22.16.5",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^24.0.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-typescript": "^14.6.0",
-    "@vue/tsconfig": "^0.7.0",
+    "@vue/tsconfig": "^0.9.1",
     "eslint": "^9.31.0",
-    "eslint-plugin-vue": "~10.3.0",
+    "eslint-plugin-vue": "^10.9.2",
     "jiti": "^2.4.2",
-    "npm-run-all2": "^8.0.4",
+    "npm-run-all2": "^9.0.2",
     "sass-embedded": "^1.92.1",
-    "typescript": "~5.8.0",
+    "typescript": "^6.0.3",
     "vite": "^7.0.6",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vue-tsc": "^3.0.4"
