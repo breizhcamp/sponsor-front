@@ -1,0 +1,27 @@
+import axios, { type AxiosInstance } from 'axios';
+import { inject, type InjectionKey } from 'vue';
+
+import type { ModuleConfiApi } from '@/dto/kalon/ModuleConfigApi';
+
+const KALON_URL: string = import.meta.env.VITE_KALON_URL;
+
+export const moneizAxiosKey: InjectionKey<AxiosInstance> = Symbol('moneizAxios');
+
+export const getMoneizUrl = async (): Promise<string> => {
+  const { data: config } = await axios.get<ModuleConfiApi[]>(KALON_URL + '/modules/config', {
+    headers: {
+      'X-Tenant-Host': location.host,
+    },
+  });
+  const moneizUrl = config.find(entry => entry.key === 'MONEIZ_URL');
+  if (!moneizUrl) throw new Error('failed to get moneiz url');
+  return moneizUrl.value;
+};
+
+export const useMoneiz = (): AxiosInstance => {
+  const moneizClient = inject(moneizAxiosKey);
+  if (moneizClient === undefined) {
+    throw new Error('moneiz client has not been initialized');
+  }
+  return moneizClient;
+};

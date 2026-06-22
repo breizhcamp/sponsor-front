@@ -1,4 +1,5 @@
 import stylistic from '@stylistic/eslint-plugin';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
 import { globalIgnores } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
@@ -20,6 +21,7 @@ export default defineConfigWithVueTs(
     semi: true,
     braceStyle: '1tbs',
   }),
+  pluginQuery.configs['flat/recommended-strict'],
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -27,6 +29,7 @@ export default defineConfigWithVueTs(
     },
     rules: {
       'eqeqeq': 'error',
+      '@tanstack/query/exhaustive-deps': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
