@@ -16,11 +16,10 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, _, next) => {
+router.beforeEach((to) => {
   const { title } = to.meta;
   const resolvedTitle = typeof title === 'function' ? title(to) : title;
   document.title = `${resolvedTitle} \u2022 ${INITIAL_TITLE}`;
-  next();
 });
 
 export default router;
