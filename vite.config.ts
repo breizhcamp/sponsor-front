@@ -24,7 +24,6 @@ export default defineConfig({
         quietDeps: true,
         silenceDeprecations: [
           'import',
-          'mixed-decls',
           'color-functions',
           'global-builtin',
         ],
