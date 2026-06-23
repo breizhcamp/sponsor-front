@@ -1,8 +1,5 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <main>
-    Welcome Sponsors! 02
+  <main class="container py-4">
+    Welcome Sponsors!
   </main>
 </template>
