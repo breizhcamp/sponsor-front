@@ -46,5 +46,11 @@
     "vite-plugin-vue-devtools": "^8.0.0",
     "vite-svg-loader": "^5.1.1",
     "vue-tsc": "^3.0.4"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.6": true,
+    "vue-demi@0.14.10": true,
+    "vue-demi@0.13.11": true,
+    "esbuild@0.27.7": true
   }
 }
