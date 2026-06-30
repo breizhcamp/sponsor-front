@@ -5,6 +5,8 @@ $success: #28a745;
 $danger: #dc3545;
 $warning: #ffc107;
 
+$enable-negative-margins: true;
+
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/variables-dark";
@@ -30,7 +32,7 @@ $warning: #ffc107;
 // @import "bootstrap/scss/accordion";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/pagination";
-@import "bootstrap/scss/badge";
+// @import "bootstrap/scss/badge";
 @import "bootstrap/scss/alert";
 // @import "bootstrap/scss/progress";
 @import "bootstrap/scss/list-group";
