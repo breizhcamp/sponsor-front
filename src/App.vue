@@ -1,12 +1,35 @@
 <script setup lang="ts">
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
+import type { AxiosInstance } from 'axios';
+import axios from 'axios';
+import { onMounted, provide, ref } from 'vue';
 
 import AppHeader from '@/components/AppHeader.vue';
+import { getMoneizUrl, moneizClientKey, moneizUrlKey } from '@/utils/moneiz';
+
+import LoadingSpinner from './components/LoadingSpinner.vue';
+
+const loading = ref<boolean>(true);
+const moneizUrl = ref<string>();
+const moneizClient = ref<AxiosInstance>();
+provide(moneizUrlKey, moneizUrl);
+provide(moneizClientKey, moneizClient);
+
+onMounted(async () => {
+  moneizUrl.value = await getMoneizUrl();
+  moneizClient.value = axios.create({
+    baseURL: moneizUrl.value,
+  });
+  loading.value = false;
+});
 </script>
 
 <template>
   <AppHeader />
-  <RouterView />
+  <main v-if="loading" class="container py-5">
+    <LoadingSpinner />
+  </main>
+  <RouterView v-else />
 
   <VueQueryDevtools />
 </template>
