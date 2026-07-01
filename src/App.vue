@@ -5,6 +5,7 @@ import axios from 'axios';
 import { onMounted, provide, ref } from 'vue';
 
 import AppHeader from '@/components/AppHeader.vue';
+import MainContainer from '@/components/MainContainer.vue';
 import { getMoneizUrl, moneizClientKey, moneizUrlKey } from '@/utils/moneiz';
 
 import LoadingSpinner from './components/LoadingSpinner.vue';
@@ -26,9 +27,9 @@ onMounted(async () => {
 
 <template>
   <AppHeader />
-  <main v-if="loading" class="container py-5">
+  <MainContainer v-if="loading">
     <LoadingSpinner />
-  </main>
+  </MainContainer>
   <RouterView v-else />
 
   <VueQueryDevtools />

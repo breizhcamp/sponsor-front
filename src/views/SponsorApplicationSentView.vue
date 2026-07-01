@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import MainContainer from '@/components/MainContainer.vue';
+</script>
+
 <template>
-  <main class="container py-5">
+  <MainContainer>
     <p>Merci</p>
-  </main>
+  </MainContainer>
 </template>
