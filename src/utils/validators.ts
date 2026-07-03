@@ -13,3 +13,8 @@ export const required = helpers.withMessage(
   'Ce champ est requis',
   validators.required,
 );
+
+export const url = helpers.withMessage(
+  'L\'URL n\'est pas valide',
+  validators.url,
+);

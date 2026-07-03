@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useVuelidate from '@vuelidate/core';
+import BiSend from 'bootstrap-icons/icons/send.svg?component';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -88,12 +89,12 @@ const handleSubmit = async () => {
       v-if="isSponsoringLevelsError"
       :message="sponsoringLevelsError?.message"
     />
-    <AppCard v-else>
-      <form @submit.prevent="handleSubmit" novalidate>
-        <ErrorAlert
-          v-if="sponsorApplyMutation.isError.value"
-          :message="sponsorApplyMutation.error.value?.message"
-        />
+    <form v-else @submit.prevent="handleSubmit" novalidate>
+      <ErrorAlert
+        v-if="sponsorApplyMutation.isError.value"
+        :message="sponsorApplyMutation.error.value?.message"
+      />
+      <AppCard class="mb-4">
         <h5 class="fw-normal mb-3">Votre société</h5>
         <div class="form-floating has-validation">
           <input
@@ -114,7 +115,11 @@ const handleSubmit = async () => {
             <span class="text-danger">*</span>
           </label>
           <div id="company-name-error" class="invalid-feedback">
-            <p v-for="error of v$.companyName.$errors" :key="error.$uid">
+            <p
+              v-for="error of v$.companyName.$errors"
+              :key="error.$uid"
+              class="mb-0"
+            >
               {{ error.$message }}
             </p>
           </div>
@@ -139,6 +144,7 @@ const handleSubmit = async () => {
             <p
               v-for="error of v$.contact.firstname.$errors"
               :key="error.$uid"
+              class="mb-0"
             >
               {{ error.$message }}
             </p>
@@ -163,7 +169,11 @@ const handleSubmit = async () => {
             <span class="text-danger">*</span>
           </label>
           <div id="contact-lastname-error" class="invalid-feedback">
-            <p v-for="error of v$.contact.lastname.$errors" :key="error.$uid">
+            <p
+              v-for="error of v$.contact.lastname.$errors"
+              :key="error.$uid"
+              class="mb-0"
+            >
               {{ error.$message }}
             </p>
           </div>
@@ -187,7 +197,11 @@ const handleSubmit = async () => {
             <span class="text-danger">*</span>
           </label>
           <div id="contact-email-error" class="invalid-feedback">
-            <p v-for="error of v$.contact.email.$errors" :key="error.$uid">
+            <p
+              v-for="error of v$.contact.email.$errors"
+              :key="error.$uid"
+              class="mb-0"
+            >
               {{ error.$message }}
             </p>
           </div>
@@ -227,7 +241,11 @@ const handleSubmit = async () => {
             <span class="text-danger">*</span>
         </label>
         <div id="sponsoring-level-error" class="invalid-feedback">
-          <p v-for="error of v$.sponsoringLevel.$errors" :key="error.$uid">
+          <p
+            v-for="error of v$.sponsoringLevel.$errors"
+            :key="error.$uid"
+            class="mb-0"
+          >
             {{ error.$message }}
           </p>
         </div>
@@ -249,17 +267,19 @@ const handleSubmit = async () => {
             Information supplémentaires
           </label>
         </div>
-        <div class="mt-4 d-flex justify-content-end">
-          <button
-            class="btn btn-primary"
-            type="submit"
-            :disabled="disabled"
-          >
-            <SmallSpinner v-if="submitting" class="me-2" />
-            Envoyer
-          </button>
-        </div>
-      </form>
-    </AppCard>
+      </AppCard>
+
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          :disabled="disabled"
+        >
+          <SmallSpinner v-if="submitting" class="me-2" />
+          <BiSend v-else class="me-2" />
+          Envoyer
+        </button>
+      </div>
+    </form>
   </MainContainer>
 </template>

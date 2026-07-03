@@ -30,6 +30,7 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tanstack/eslint-plugin-query": "^5.101.0",
     "@tsconfig/node24": "^24.0.4",
+    "@types/bootstrap": "^5.2.11",
     "@types/node": "^24.0.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-typescript": "^14.6.0",

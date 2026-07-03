@@ -32,13 +32,13 @@ $enable-negative-margins: true;
 // @import "bootstrap/scss/accordion";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/pagination";
-// @import "bootstrap/scss/badge";
+@import "bootstrap/scss/badge";
 @import "bootstrap/scss/alert";
 // @import "bootstrap/scss/progress";
 @import "bootstrap/scss/list-group";
-// @import "bootstrap/scss/close";
+@import "bootstrap/scss/close";
 // @import "bootstrap/scss/toasts";
-// @import "bootstrap/scss/modal";
+@import "bootstrap/scss/modal";
 // @import "bootstrap/scss/tooltip";
 // @import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
@@ -59,4 +59,8 @@ $enable-negative-margins: true;
     --bg-color-hover-active: #343a40;
     --bg-color-selected: #495057;
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
