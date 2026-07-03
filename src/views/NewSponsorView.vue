@@ -9,6 +9,7 @@ import CardSeparator from '@/components/CardSeparator.vue';
 import ErrorAlert from '@/components/ErrorAlert.vue';
 import MainContainer from '@/components/MainContainer.vue';
 import SmallSpinner from '@/components/SmallSpinner.vue';
+import TextField from '@/components/TextField.vue';
 import type { SponsorApplicationReq } from '@/dto/moneiz/SponsorApplicationReq';
 import { listSponsoringLevels } from '@/queries/moneiz/levels.queries';
 import { useSponsorApplyMutation } from '@/queries/moneiz/sponsors.queries';
@@ -96,116 +97,50 @@ const handleSubmit = async () => {
       />
       <AppCard class="mb-4">
         <h5 class="fw-normal mb-3">Votre société</h5>
-        <div class="form-floating has-validation">
-          <input
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': v$.companyName.$error }"
-            id="company-name"
-            placeholder="Nom"
-            v-model="form.companyName"
-            @blur="v$.companyName.$touch"
-            aria-describedby="company-name-error"
-            :aria-invalid="v$.companyName.$error"
-            :disabled="disabled"
-            required
-          >
-          <label for="company-name">
-            Nom de votre société
-            <span class="text-danger">*</span>
-          </label>
-          <div id="company-name-error" class="invalid-feedback">
-            <p
-              v-for="error of v$.companyName.$errors"
-              :key="error.$uid"
-              class="mb-0"
-            >
-              {{ error.$message }}
-            </p>
-          </div>
-        </div>
+        <TextField
+          id="company-name"
+          label="Nom de votre société"
+          v-model="form.companyName"
+          @blur="v$.companyName.$touch"
+          placeholder="Nom"
+          :errors="v$.companyName.$errors"
+          :disabled="disabled"
+          required
+        />
         <CardSeparator />
         <h5 class="fw-normal mb-3">Contacts</h5>
-        <div class="form-floating has-validation mb-3">
-          <input
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': v$.contact.firstname.$error }"
-            id="contact-firstname"
-            placeholder="John"
-            v-model="form.contact.firstname"
-            @blur="v$.contact.firstname.$touch"
-            aria-describedby="contact-firstname-error"
-            :aria-invalid="v$.contact.firstname.$error"
-            :disabled="disabled"
-          >
-          <label for="contact-firstname">Prénom</label>
-          <div id="contact-firstname-error" class="invalid-feedback">
-            <p
-              v-for="error of v$.contact.firstname.$errors"
-              :key="error.$uid"
-              class="mb-0"
-            >
-              {{ error.$message }}
-            </p>
-          </div>
-        </div>
-        <div class="form-floating has-validation mb-3">
-          <input
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': v$.contact.lastname.$error }"
-            id="contact-lastname"
-            placeholder="Doe"
-            v-model="form.contact.lastname"
-            @blur="v$.contact.lastname.$touch"
-            aria-describedby="contact-lastname-error"
-            :aria-invalid="v$.contact.lastname.$error"
-            :disabled="disabled"
-            required
-          >
-          <label for="contact-lastname">
-            Nom
-            <span class="text-danger">*</span>
-          </label>
-          <div id="contact-lastname-error" class="invalid-feedback">
-            <p
-              v-for="error of v$.contact.lastname.$errors"
-              :key="error.$uid"
-              class="mb-0"
-            >
-              {{ error.$message }}
-            </p>
-          </div>
-        </div>
-        <div class="form-floating has-validation">
-          <input
-            type="email"
-            class="form-control"
-            :class="{ 'is-invalid': v$.contact.email.$error }"
-            id="contact-email"
-            placeholder="john.doe@example.com"
-            v-model="form.contact.email"
-            @blur="v$.contact.email.$touch"
-            aria-describedby="contact-email-error"
-            :aria-invalid="v$.contact.email.$error"
-            :disabled="disabled"
-            required
-          >
-          <label for="contact-email">
-            Email
-            <span class="text-danger">*</span>
-          </label>
-          <div id="contact-email-error" class="invalid-feedback">
-            <p
-              v-for="error of v$.contact.email.$errors"
-              :key="error.$uid"
-              class="mb-0"
-            >
-              {{ error.$message }}
-            </p>
-          </div>
-        </div>
+        <TextField
+          id="contact-firstname"
+          label="Prénom"
+          class="mb-3"
+          v-model="form.contact.firstname"
+          @blur="v$.contact.firstname.$touch"
+          placeholder="John"
+          :errors="v$.contact.firstname.$errors"
+          :disabled="disabled"
+        />
+        <TextField
+          id="contact-lastname"
+          label="Nom"
+          class="mb-3"
+          v-model="form.contact.lastname"
+          @blur="v$.contact.lastname.$touch"
+          placeholder="Doe"
+          :errors="v$.contact.lastname.$errors"
+          :disabled="disabled"
+          required
+        />
+        <TextField
+          id="contact-email"
+          label="Email"
+          type="email"
+          v-model="form.contact.email"
+          @blur="v$.contact.email.$touch"
+          placeholder="john.doe@example.com"
+          :errors="v$.contact.email.$errors"
+          :disabled="disabled"
+          required
+        />
         <CardSeparator />
         <h5 class="fw-normal mb-3">Niveau de sponsoring</h5>
         <p id="sponsoring-level-description" class="mb-3 text-muted">

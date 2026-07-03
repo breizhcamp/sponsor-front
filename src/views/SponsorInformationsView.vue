@@ -13,6 +13,7 @@ import ConfirmationModal from '@/components/ConfirmationModal.vue';
 import ContactFormModal from '@/components/ContactFormModal.vue';
 import MainContainer from '@/components/MainContainer.vue';
 import SmallSpinner from '@/components/SmallSpinner.vue';
+import TextField from '@/components/TextField.vue';
 import { contactTypeToString } from '@/dto/moneiz/ContactType';
 import type {
   SponsorInformationsContactReq,
@@ -128,63 +129,28 @@ const handleSubmit = async () => {
 
         <div class="row">
           <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-            <div class="form-floating has-validation mb-3">
-              <input
-                type="text"
-                class="form-control"
-                :class="{ 'is-invalid': v$.name.$error }"
-                id="name"
-                v-model="form.name"
-                @blur="v$.name.$touch"
-                placeholder="Nom"
-                aria-describedby="name-error"
-                :aria-invalid="v$.name.$error"
-                :disabled="disabled"
-                required
-              />
-              <label for="name">
-                Nom de votre société
-                <span class="text-danger">*</span>
-              </label>
-              <div id="name-error" class="invalid-feedback">
-                <p
-                  v-for="error of v$.name.$errors"
-                  :key="error.$uid"
-                  class="mb-0"
-                >
-                  {{ error.$message }}
-                </p>
-              </div>
-            </div>
+            <TextField
+              id="name"
+              class="mb-3"
+              label="Nom de votre société"
+              v-model="form.name"
+              @blur="v$.name.$touch"
+              placeholder="Nom"
+              :errors="v$.name.$errors"
+              :disabled="disabled"
+              required
+            />
 
-            <div class="form-floating has-validation">
-              <input
-                type="text"
-                class="form-control"
-                :class="{ 'is-invalid': v$.url.$error }"
-                id="url"
-                v-model="form.url"
-                @blur="v$.url.$touch"
-                placeholder="https://example.com"
-                aria-describedby="url-error"
-                :aria-invalid="v$.url.$error"
-                :disabled="disabled"
-                required
-              />
-              <label for="url">
-                Adresse site web
-                <span class="text-danger">*</span>
-              </label>
-              <div id="url-error" class="invalid-feedback">
-                <p
-                  v-for="error of v$.url.$errors"
-                  :key="error.$uid"
-                  class="mb-0"
-                >
-                  {{ error.$message }}
-                </p>
-              </div>
-            </div>
+            <TextField
+              id="url"
+              label="Adresse site web"
+              v-model="form.url"
+              @blur="v$.url.$touch"
+              placeholder="https://example.com"
+              :errors="v$.url.$errors"
+              :disabled="disabled"
+              required
+            />
           </div>
 
           <div class="col-12 col-xl-6">
@@ -229,34 +195,16 @@ const handleSubmit = async () => {
         <CardSeparator />
 
         <h5 class="card-title mb-3">Informations de facturation</h5>
-        <div class="form-floating has-validation mb-3">
-          <input
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': v$.invoiceName.$error }"
-            id="invoice-name"
-            v-model="form.invoiceName"
-            @blur="v$.invoiceName.$touch"
-            placeholder=""
-            aria-describedby="invoice-name-error"
-            :aria-invalid="v$.invoiceName.$error"
-            :disabled="disabled"
-            required
-          />
-          <label for="invoice-name">
-            Raison sociale
-            <span class="text-danger">*</span>
-          </label>
-          <div id="url-error" class="invalid-feedback">
-            <p
-              v-for="error of v$.invoiceName.$errors"
-              :key="error.$uid"
-              class="mb-0"
-            >
-              {{ error.$message }}
-            </p>
-          </div>
-        </div>
+        <TextField
+          id="invoice-name"
+          label="Raison sociale"
+          class="mb-3"
+          v-model="form.invoiceName"
+          @blur="v$.invoiceName.$touch"
+          :errors="v$.invoiceName.$errors"
+          :disabled="disabled"
+          required
+        />
 
         <div class="form-floating has-validation">
           <textarea

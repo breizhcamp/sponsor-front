@@ -29,6 +29,7 @@ export default defineConfigWithVueTs(
     },
     rules: {
       'eqeqeq': 'error',
+      'no-console': 'error',
       '@tanstack/query/exhaustive-deps': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       'simple-import-sort/imports': 'error',
