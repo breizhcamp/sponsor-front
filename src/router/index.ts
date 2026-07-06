@@ -31,6 +31,11 @@ const router = createRouter({
       component: () => import('@/views/SponsorInformationsView.vue'),
       meta: { title: 'Informations' },
     }, {
+      path: '/sponsors/agreement',
+      name: 'sponsorAgreement',
+      component: () => import('@/views/SponsorAgreementView.vue'),
+      meta: { title: 'Convention' },
+    }, {
       path: '/:pathMatch(.*)',
       name: 'notFound',
       component: NotFoundView,
