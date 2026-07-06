@@ -11,6 +11,7 @@ import AppCard from '@/components/AppCard.vue';
 import CardSeparator from '@/components/CardSeparator.vue';
 import ConfirmationModal from '@/components/ConfirmationModal.vue';
 import ContactFormModal from '@/components/ContactFormModal.vue';
+import InfoAlert from '@/components/InfoAlert.vue';
 import MainContainer from '@/components/MainContainer.vue';
 import SmallSpinner from '@/components/SmallSpinner.vue';
 import TextField from '@/components/TextField.vue';
@@ -120,6 +121,16 @@ const handleSubmit = async () => {
 
 <template>
   <MainContainer>
+    <InfoAlert>
+      <p class="my-0">
+        Merci de remplir le formulaire suivant afin d'enregistrer votre
+        participation en tant que sponsor du BreizhCamp.
+      </p>
+      <p class="my-0">
+        La convention de sponsoring sera éditée à l'issue du remplissage et vous
+        pourrez la signer.
+      </p>
+    </InfoAlert>
     <form @submit.prevent="handleSubmit" novalidate>
       <AppCard class="mb-4">
         <h5 class="card-title">Informations générales</h5>
