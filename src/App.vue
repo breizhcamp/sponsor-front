@@ -7,7 +7,7 @@ import AppHeader from '@/components/AppHeader.vue';
 import ErrorAlert from '@/components/ErrorAlert.vue';
 import MainContainer from '@/components/MainContainer.vue';
 import { getConfig } from '@/queries/kalon/module.queries';
-import { getConfigValue } from '@/utils/config';
+import { defaultEventIdKey, getConfigValue } from '@/utils/config';
 import { moneizClientKey, moneizUrlKey } from '@/utils/moneiz';
 
 import LoadingSpinner from './components/LoadingSpinner.vue';
@@ -22,8 +22,11 @@ const {
 
 const moneizUrl = computed(() => getConfigValue(config, 'MONEIZ_URL'));
 const moneizClient = computed(() => moneizUrl.value ? axios.create({ baseURL: moneizUrl.value }) : undefined);
+const defaultEventId = computed(() => getConfigValue(config, 'DEFAULT_EVENT_ID'));
+
 provide(moneizUrlKey, moneizUrl);
 provide(moneizClientKey, moneizClient);
+provide(defaultEventIdKey, defaultEventId);
 </script>
 
 <template>

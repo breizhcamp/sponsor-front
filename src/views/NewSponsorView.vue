@@ -13,16 +13,19 @@ import TextField from '@/components/TextField.vue';
 import type { SponsorApplicationReq } from '@/dto/moneiz/SponsorApplicationReq';
 import { listSponsoringLevels } from '@/queries/moneiz/levels.queries';
 import { useSponsorApplyMutation } from '@/queries/moneiz/sponsors.queries';
+import { useDefaultEventId } from '@/utils/config';
 import { email, maxLength, required } from '@/utils/validators';
 
 const router = useRouter();
+
+const defaultEventId = useDefaultEventId();
 
 const {
   isPending: isSponsoringLevelsPending,
   isError: isSponsoringLevelsError,
   error: sponsoringLevelsError,
   data: levels,
-} = listSponsoringLevels('2026');
+} = listSponsoringLevels(defaultEventId);
 
 const sponsorApplyMutation = useSponsorApplyMutation();
 
@@ -64,7 +67,7 @@ const handleSubmit = async () => {
   if (!await v$.value.$validate()) return;
 
   await sponsorApplyMutation.mutateAsync({
-    eventId: '2026',
+    eventId: defaultEventId,
     sponsorApplicationReq: {
       companyName: form.companyName.trim(),
       contact: {
