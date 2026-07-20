@@ -1,10 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HomeView from '@/views/HomeView.vue';
-import NewSponsorView from '@/views/NewSponsorView.vue';
-import NotFoundView from '@/views/NotFoundView.vue';
-import SponsorApplicationSentView from '@/views/SponsorApplicationSentView.vue';
-
 const INITIAL_TITLE = document.title;
 
 const router = createRouter({
@@ -13,17 +8,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('@/views/HomeView.vue'),
       meta: { title: 'Home' },
     }, {
       path: '/sponsors/new',
       name: 'newSponsor',
-      component: NewSponsorView,
+      component: () => import('@/views/NewSponsorView.vue'),
       meta: { title: 'Nouveau Sponsor' },
     }, {
       path: '/sponsors/application-sent',
       name: 'sponsorApplicationSent',
-      component: SponsorApplicationSentView,
+      component: () => import('@/views/SponsorApplicationSentView.vue'),
       meta: { title: 'Nouveau Sponsor' },
     }, {
       path: '/sponsors/infos',
@@ -38,7 +33,7 @@ const router = createRouter({
     }, {
       path: '/:pathMatch(.*)',
       name: 'notFound',
-      component: NotFoundView,
+      component: () => import('@/views/NotFoundView.vue'),
       meta: { title: '404 Not Found' },
     },
   ],
