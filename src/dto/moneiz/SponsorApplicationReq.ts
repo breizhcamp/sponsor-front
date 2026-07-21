@@ -1,7 +1,7 @@
 export interface SponsorApplicationReq {
   companyName: string;
   contact: SponsorApplicationContactReq;
-  sponsoringLevel: string;
+  sponsoringLevel?: string;
   additionalInformations?: string;
 }
 

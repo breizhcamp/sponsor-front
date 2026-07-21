@@ -10,31 +10,31 @@ import ErrorAlert from '@/components/ErrorAlert.vue';
 import MainContainer from '@/components/MainContainer.vue';
 import SmallSpinner from '@/components/SmallSpinner.vue';
 import TextField from '@/components/TextField.vue';
-import type { SponsorApplicationReq } from '@/dto/moneiz/SponsorApplicationReq';
 import { listSponsoringLevels } from '@/queries/moneiz/levels.queries';
-import { useSponsorApplyMutation } from '@/queries/moneiz/sponsors.queries';
-import { useDefaultEventId } from '@/utils/config';
+import {
+  useCreateSponsorApplicationMutation,
+} from '@/queries/moneiz/sponsor-applications.queries';
 import { email, maxLength, required } from '@/utils/validators';
 
-const router = useRouter();
+const DONT_WANT_TO_BE_SPONSOR_VALUE = 'DONT_WANT_TO_BE_SPONSOR';
 
-const defaultEventId = useDefaultEventId();
+const router = useRouter();
 
 const {
   isPending: isSponsoringLevelsPending,
   isError: isSponsoringLevelsError,
   error: sponsoringLevelsError,
   data: levels,
-} = listSponsoringLevels(defaultEventId);
+} = listSponsoringLevels();
 
-const sponsorApplyMutation = useSponsorApplyMutation();
+const sponsorApplyMutation = useCreateSponsorApplicationMutation();
 
 const submitting = computed<boolean>(() => sponsorApplyMutation.isPending.value);
 const disabled = computed(() => {
   return isSponsoringLevelsPending.value || submitting.value;
 });
 
-const form = reactive<SponsorApplicationReq>({
+const form = reactive({
   companyName: '',
   contact: {
     firstname: '',
@@ -67,17 +67,16 @@ const handleSubmit = async () => {
   if (!await v$.value.$validate()) return;
 
   await sponsorApplyMutation.mutateAsync({
-    eventId: defaultEventId,
-    sponsorApplicationReq: {
-      companyName: form.companyName.trim(),
-      contact: {
-        firstname: form.contact.firstname?.trim() || undefined,
-        lastname: form.contact.lastname.trim(),
-        email: form.contact.email.trim(),
-      },
-      sponsoringLevel: form.sponsoringLevel,
-      additionalInformations: form.additionalInformations?.trim() || undefined,
+    companyName: form.companyName.trim(),
+    contact: {
+      firstname: form.contact.firstname.trim() || undefined,
+      lastname: form.contact.lastname.trim(),
+      email: form.contact.email.trim(),
     },
+    sponsoringLevel: form.sponsoringLevel === DONT_WANT_TO_BE_SPONSOR_VALUE
+      ? undefined
+      : form.sponsoringLevel,
+    additionalInformations: form.additionalInformations.trim() || undefined,
   });
 
   await router.push({ name: 'sponsorApplicationSent' });
@@ -166,12 +165,17 @@ const handleSubmit = async () => {
             <option value="" disabled>
               Choisissez un niveau de sponsoring
             </option>
+            <hr />
             <option
               v-for="level in levels"
               :value="level.name"
               :key="level.name"
             >
               {{ level.name }}
+            </option>
+            <hr />
+            <option :value="DONT_WANT_TO_BE_SPONSOR_VALUE">
+              Nous ne souhaitons pas sponsorisez cette année
             </option>
           </select>
           <label for="sponsoring-level">
