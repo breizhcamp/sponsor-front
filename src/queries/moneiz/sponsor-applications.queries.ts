@@ -1,21 +1,14 @@
 import { useMutation } from '@tanstack/vue-query';
 
-import type { EventId } from '@/dto/kalon/Event';
 import type { SponsorApplicationReq } from '@/dto/moneiz/SponsorApplicationReq';
 import { useMoneiz } from '@/utils/moneiz';
 
-export const useSponsorApplyMutation = () => {
+export const useCreateSponsorApplicationMutation = () => {
   const moneiz = useMoneiz();
   return useMutation({
-    mutationFn: async ({
-      eventId,
-      sponsorApplicationReq,
-    }: {
-      eventId: EventId;
-      sponsorApplicationReq: SponsorApplicationReq;
-    }) => {
+    mutationFn: async (sponsorApplicationReq: SponsorApplicationReq) => {
       await moneiz.post(
-        `/api/public/${eventId}/sponsors/apply`,
+        `/api/public/sponsor-applications`,
         sponsorApplicationReq,
       );
     },
