@@ -57,6 +57,14 @@ router.beforeEach(async (to) => {
   if (requiresAuth) {
     const { requireAuthentication } = useKeycloakStore();
     await requireAuthentication(location.origin + to.fullPath);
+    // Clear the fragment left by Keycloak that make errors when refreshing
+    // the page.
+    if (to.hash) {
+      return {
+        ...to,
+        hash: '',
+      };
+    }
   }
 
   const resolvedTitle = typeof title === 'function' ? title(to) : title;
