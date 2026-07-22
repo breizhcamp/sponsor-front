@@ -1,39 +1,29 @@
 <script setup lang="ts">
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
-import axios from 'axios';
-import { computed, provide } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import AppHeader from '@/components/AppHeader.vue';
 import ErrorAlert from '@/components/ErrorAlert.vue';
 import MainContainer from '@/components/MainContainer.vue';
-import { getConfig } from '@/queries/kalon/module.queries';
-import { defaultEventIdKey, getConfigValue } from '@/utils/config';
-import { moneizClientKey, moneizUrlKey } from '@/utils/moneiz';
+import { isRouterNavigating } from '@/router';
+import { useConfigStore } from '@/stores/config.store';
 
 import LoadingSpinner from './components/LoadingSpinner.vue';
 
+const configStore = useConfigStore();
 const {
-  isPending: isConfigPending,
-  isError: isConfigError,
-  isSuccess: isConfigSuccess,
-  error: configError,
-  data: config,
-} = getConfig();
-
-const moneizUrl = computed(() => getConfigValue(config, 'MONEIZ_URL'));
-const moneizClient = computed(() => moneizUrl.value ? axios.create({ baseURL: moneizUrl.value }) : undefined);
-const defaultEventId = computed(() => getConfigValue(config, 'DEFAULT_EVENT_ID'));
-
-provide(moneizUrlKey, moneizUrl);
-provide(moneizClientKey, moneizClient);
-provide(defaultEventIdKey, defaultEventId);
+  isConfigPending,
+  isConfigError,
+  isConfigSuccess,
+  configError,
+} = storeToRefs(configStore);
 </script>
 
 <template>
   <AppHeader />
-  <RouterView v-if="isConfigSuccess" />
+  <RouterView v-if="isConfigSuccess && !isRouterNavigating" />
   <MainContainer v-else>
-    <LoadingSpinner v-if="isConfigPending" />
+    <LoadingSpinner v-if="isConfigPending || isRouterNavigating" />
     <ErrorAlert v-else-if="isConfigError" :message="configError?.message" />
   </MainContainer>
 

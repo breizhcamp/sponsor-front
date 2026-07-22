@@ -3,7 +3,7 @@ import { queryOptions, useQuery } from '@tanstack/vue-query';
 import type { ModuleConfiApi } from '@/dto/kalon/ModuleConfigApi';
 import { kalon } from '@/utils/kalon';
 
-export const getConfigOptions = () => queryOptions({
+export const useConfigOptions = () => queryOptions({
   queryKey: ['kalon', 'modules', 'config'],
   queryFn: async () => {
     const response = await kalon.get<ModuleConfiApi[]>(
@@ -22,4 +22,4 @@ export const getConfigOptions = () => queryOptions({
   refetchOnReconnect: false,
 });
 
-export const getConfig = () => useQuery(getConfigOptions());
+export const useConfig = () => useQuery(useConfigOptions());
