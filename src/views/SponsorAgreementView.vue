@@ -27,7 +27,7 @@ const rules = {
   },
 };
 
-const v$ = useVuelidate(rules, form);
+const v$ = useVuelidate(rules, form, { $scope: false });
 
 const handleSubmit = async () => {
   if (!await v$.value.$validate()) {
