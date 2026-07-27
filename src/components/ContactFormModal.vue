@@ -46,7 +46,7 @@ const rules = {
   },
 };
 
-const v$ = useVuelidate(rules, form);
+const v$ = useVuelidate(rules, form, { $scope: false });
 
 const handleTypeChange = (event: InputEvent, contactType: ContactType) => {
   v$.value.type.$touch();
