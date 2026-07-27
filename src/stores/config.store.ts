@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { defineStore } from 'pinia';
 import { computed, type Ref } from 'vue';
 
 import type { ModuleConfiApi } from '@/dto/kalon/ModuleConfigApi';
 import { useConfig } from '@/queries/kalon/module.queries';
+import { createMoneizClient } from '@/utils/moneiz';
 
 const getConfigValue = (
   config: Ref<ModuleConfiApi[] | undefined>,
@@ -38,11 +38,9 @@ export const useConfigStore = defineStore('config', () => {
     () => getConfigValue(config, 'KEYCLOAK_CLIENT_ID'),
   );
 
-  const moneizClient = computed(() => moneizUrl.value
-    ? axios.create({
-        baseURL: moneizUrl.value,
-      })
-    : undefined);
+  const moneizClient = computed(
+    () => moneizUrl.value ? createMoneizClient(moneizUrl.value) : undefined,
+  );
 
   return {
     isConfigPending,

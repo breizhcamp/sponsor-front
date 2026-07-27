@@ -34,6 +34,13 @@ export const useKeycloakStore = defineStore('keycloak', () => {
     return;
   };
 
+  const getToken = async (): Promise<string> => {
+    const keycloak = await keycloakPromise;
+    if (!keycloak.authenticated) return '';
+    await keycloak.updateToken();
+    return keycloak.token || '';
+  };
+
   watch(
     [keycloakUrl, keycloakRealm, keycloakClientId],
     ([keycloakUrl, keycloakRealm, keycloakClientId]) => {
@@ -56,5 +63,6 @@ export const useKeycloakStore = defineStore('keycloak', () => {
 
   return {
     requireAuthentication,
+    getToken,
   };
 });

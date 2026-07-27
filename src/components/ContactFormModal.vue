@@ -5,8 +5,9 @@ import { reactive, ref } from 'vue';
 
 import AppModal from '@/components/AppModal.vue';
 import TextField from '@/components/TextField.vue';
+import type { ContactId } from '@/dto/moneiz/ContactId';
+import type { ContactReq } from '@/dto/moneiz/ContactReq';
 import { ContactType, contactTypeToString } from '@/dto/moneiz/ContactType';
-import type { SponsorInformationsContactReq } from '@/dto/moneiz/SponsorInformationsReq';
 import { email, maxLength, required } from '@/utils/validators';
 
 withDefaults(defineProps<{
@@ -14,10 +15,11 @@ withDefaults(defineProps<{
 }>(), { edit: false });
 
 const emit = defineEmits<{
-  save: [contact: SponsorInformationsContactReq];
+  save: [contact: ContactReq];
 }>();
 
 const modal = ref<InstanceType<typeof AppModal>>();
+const contactId = ref<ContactId>();
 
 const form = reactive<{
   firstname: string;
@@ -63,6 +65,7 @@ const handleClick = async () => {
 
   const { firstname, lastname, email, type } = form;
   emit('save', {
+    id: contactId.value,
     firstname: firstname.trim() || undefined,
     lastname: lastname.trim(),
     email: email.trim(),
@@ -72,14 +75,16 @@ const handleClick = async () => {
   modal.value?.close();
 };
 
-const show = (contact?: SponsorInformationsContactReq) => {
+const show = (contact?: ContactReq) => {
   if (contact !== undefined) {
-    const { firstname, lastname, email, type } = contact;
+    const { id, firstname, lastname, email, type } = contact;
+    contactId.value = id;
     form.firstname = firstname ?? '';
     form.lastname = lastname;
     form.email = email;
     form.type = [...type];
   } else {
+    contactId.value = undefined;
     form.firstname = '';
     form.lastname = '';
     form.email = '';
