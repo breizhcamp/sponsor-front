@@ -24,7 +24,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "keycloak-js": "^26.2.4",
-    "pinia": "^3.0.4",
+    "pinia": "^4.0.2",
     "vue": "^3.5.18",
     "vue-router": "^5.1.0"
   },
@@ -39,7 +39,7 @@
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^9.31.0",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-simple-import-sort": "^13.0.0",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-vue": "^10.9.2",
     "jiti": "^2.4.2",
     "npm-run-all2": "^9.0.2",
@@ -51,7 +51,7 @@
     "vue-tsc": "^3.0.4"
   },
   "allowScripts": {
-    "@parcel/watcher@2.5.6": true,
+    "@parcel/watcher@2.6.0": true,
     "vue-demi@0.14.10": true,
     "vue-demi@0.13.11": true
   }
